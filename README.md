@@ -1,36 +1,37 @@
 # My Portfolio
 
-A personal portfolio website for **Patrick Morano** — BS Computer Science student — built with **Object-Oriented PHP**.
+Modern personal portfolio website for **Patrick Morano** — BS Computer Science student — built with **Next.js (App Router) + TypeScript + Framer Motion**, deployed on **Vercel**.
 
-## Features
-- OOP PHP structure (separate classes for Profile, Education, Skills, Experience, Seminars, Achievements, Contact, and a Renderer)
-- Responsive design matching the CV's navy/blue theme
-- Smooth scrolling and scroll-based fade-in animations (vanilla JS)
+## ✨ Features
+- Next.js 15 App Router with TypeScript
+- Smooth UI animations with Framer Motion (scroll reveals, staggered cards, ambient glow blobs, gradient shine text)
+- Fully responsive dark theme with glassmorphism cards
+- Static pre-render — fast and Vercel-ready
 
-## Project Structure
+## 🗂 Structure
 ```
-my portfolio/
-├── index.php              # Entry point — builds Portfolio and renders it
-├── src/
-│   ├── Portfolio.php      # Main model: assembles all CV data (factory: fromCV())
-│   ├── PortfolioRenderer.php  # View: renders the full HTML page
-│   ├── Profile.php
-│   ├── Education.php
-│   ├── Skill.php
-│   ├── Experience.php
-│   ├── Seminar.php
-│   ├── Achievement.php
-│   └── Contact.php
-├── assets/
-│   ├── css/style.css
-│   └── js/main.js
-└── README.md
+├── app/
+│   ├── layout.tsx      # Root layout + metadata
+│   ├── page.tsx        # Home page (all sections)
+│   └── globals.css     # Theme + base styles
+├── components/
+│   ├── Navbar.tsx      # Fixed glass navbar
+│   ├── Hero.tsx        # Animated hero section
+│   └── Animated.tsx    # Reusable scroll-animation components
+└── lib/
+    └── data.ts         # All portfolio/CV data
 ```
 
-## Run Locally (XAMPP)
-1. Place this folder inside `C:\xampp\htdocs\`
-2. Start Apache from the XAMPP Control Panel
-3. Open http://localhost/my%20portfolio/
+## 🚀 Run Locally
+```bash
+npm install
+npm run dev
+```
+Open http://localhost:3000
 
-## GitHub
-https://github.com/patmorano23zzz/my-portfolio
+## ☁️ Deploy to Vercel
+1. Push to GitHub (this repo)
+2. Go to https://vercel.com/new
+3. Import the `my-portfolio` repository — Vercel auto-detects Next.js
+4. Click **Deploy**
+
