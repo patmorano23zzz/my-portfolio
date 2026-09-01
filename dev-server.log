@@ -1,0 +1,43 @@
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.121:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.5s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.3s (1270 modules)
+ GET / 200 in 8133ms
+ GET / 200 in 446ms
+ GET / 200 in 501ms
+ GET / 200 in 940ms
+ GET / 200 in 471ms
+ GET / 200 in 385ms
+ GET / 200 in 618ms
+ ✓ Compiled in 1494ms (1256 modules)
+ ✓ Compiled in 2.6s (1256 modules)
+ GET / 200 in 813ms
+ ✓ Compiled in 1600ms (679 modules)
+ ⨯ ReferenceError: certificates is not defined
+    at Home (app\page.tsx:76:16)
+  74 |                 </AnimatedCard>
+  75 |               ))}
+> 76 |               {certificates.map((cert) => (
+     |                ^
+  77 |                 <AnimatedCard key={cert.title}>
+  78 |                   <span className="tag">Certificate of Participation</span>
+  79 |                   <p style={{ color: "var(--muted)" }}>{cert.title}</p> {
+  digest: '110221657'
+}
+ GET / 200 in 722ms
+ ✓ Compiled in 687ms (1259 modules)
+ GET / 200 in 993ms
+ ✓ Compiled in 1404ms (1273 modules)
+ GET / 200 in 263ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1973ms (1264 modules)
+ GET /certificate1.jpg 404 in 2776ms
+ GET / 200 in 1424ms

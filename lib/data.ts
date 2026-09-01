@@ -20,10 +20,52 @@ export interface Seminar {
   title: string;
 }
 
+export interface Certificate {
+  title: string;
+  issuer: string;
+  date: string;
+  image: string;
+}
+
+export const certificates: Certificate[] = [
+  {
+    title:
+      "Smarter & Greener Future: Inclusive Computer Literacy Training for All Through Environmental Sustainability, Climate Change Awareness, and Gender-Responsive Development",
+    issuer: "President Ramon Magsaysay State University — Sta. Cruz Campus",
+    date: "May 11, 2026",
+    image: "/certificate1.jpg",
+  },
+];
+
 export interface Achievement {
   period: string;
   description: string;
 }
+
+export interface Project {
+  title: string;
+  description: string;
+  category: string;
+  url: string;
+}
+
+export const projects: Project[] = [
+  {
+    title: "BatangBibo",
+    description:
+      "A full-stack web system built and deployed for real users, with its own database and live hosting.",
+    category: "Web App / Full-Stack",
+    url: "https://batangbibo.great-site.net",
+  },
+  {
+    title: "Donma-ATS",
+    description:
+      "An automated attendance tracking system designed for faster, more reliable daily record-keeping.",
+    category: "Web App / School",
+    url: "https://donma-ats.site.je",
+  },
+];
+
 
 export const profile = {
   name: "Patrick Morano",
