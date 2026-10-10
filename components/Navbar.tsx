@@ -132,6 +132,7 @@ export default function Navbar({ name }: { name: string }) {
           ))}
         </ul>
 
+        <div className="nav-controls">
         <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
           <span aria-hidden="true">{theme === "dark" ? "☼" : "☾"}</span>
           <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
@@ -147,6 +148,7 @@ export default function Navbar({ name }: { name: string }) {
           <span />
           <span />
         </button>
+        </div>
       </motion.nav>
 
       {/* Mobile menu overlay */}
