@@ -10,11 +10,6 @@ export interface SkillGroup {
   items: string[];
 }
 
-export interface Experience {
-  place: string;
-  description: string;
-}
-
 export interface Seminar {
   year: string;
   title: string;
@@ -46,23 +41,34 @@ export interface Project {
   title: string;
   description: string;
   category: string;
-  url: string;
+  url?: string;
+  period: string;
 }
 
 export const projects: Project[] = [
   {
     title: "BatangBibo",
     description:
-      "A full-stack web system built and deployed for real users, with its own database and live hosting.",
-    category: "Web App / Full-Stack",
+      "Built a PHP/MySQL learning platform for teachers to manage students, classes, and learning activities. Includes adaptive student missions, progress tracking, hints, achievements, role-based dashboards, reporting, notifications, and mobile-friendly problem reporting.",
+    category: "PHP / MySQL / Education",
     url: "https://batangbibo.great-site.net",
+    period: "Jan 2026 – Present",
   },
   {
-    title: "Donma-ATS",
+    title: "Donma Automated Attendance System",
     description:
-      "An automated attendance tracking system designed for faster, more reliable daily record-keeping.",
-    category: "Web App / School",
+      "Developed a modular PHP/MySQL attendance system for Don Marcelo C. Marty Elementary School, with role-based admin, teacher, student, authentication, and attendance modules. Uses PDO, automatic schema migrations, and WebRTC signaling and messaging for kiosk and teacher communication.",
+    category: "PHP / MySQL / WebRTC",
     url: "https://donma-ats.site.je",
+    period: "Jul 2026 – Present",
+  },
+  {
+    title: "EduVault",
+    description:
+      "Built a school records and document management system for Atel-Batang Elementary School using React, Tailwind CSS, PHP, and MySQL. Includes admin and teacher portals, secure document storage and audit logging, plus reference-code document requests with registrar review and approval.",
+    category: "React / Tailwind / PHP / MySQL",
+    url: "https://abes-eduvault.com/",
+    period: "Aug 2026 – Present",
   },
 ];
 
@@ -70,12 +76,12 @@ export const projects: Project[] = [
 export const profile = {
   name: "Patrick Morano",
   initials: "PM",
-  title: "BS Computer Science",
+  title: "Web Developer · BS Computer Science Student",
   bio: "A creative and detail-oriented Computer Science student who builds clean, efficient, and purposeful web solutions. With hands-on experience in PHP, JavaScript and database management, I approach every project with a balance of technical precision and creative problem-solving. I thrive in collaborative environments, communicate clearly with my team, and take ownership of every task I am given. Outside of coding, I recharge through gaming and drawing and carry that same strategic and creative mindset into everything I do professionally.",
   contact: {
     phone: "09913123145",
     email: "patmorano23@gmail.com",
-    address: "Brgy. Gama Sta. Cruz, Zambales",
+    address: "Sitio Balza, Brgy. Gama, Sta. Cruz, Zambales",
     github: "https://github.com/patmorano23zzz",
   },
 };
@@ -83,21 +89,21 @@ export const profile = {
 export const education: Education[] = [
   {
     level: "Tertiary",
-    school: "PRMSU Sta. Cruz — BS Computer Science",
-    detail: "Currently enrolled",
+    school: "President Ramon Magsaysay State University – Sta. Cruz Campus",
+    detail: "Bachelor of Science in Computer Science",
     years: "2023 - Present",
   },
   {
-    level: "Senior High School",
-    school: "TVL-ICT (CSS), Cato National High School",
-    detail: "Graduated with honors",
-    years: "2020 - 2022",
+    level: "Secondary",
+    school: "Cato National High School",
+    detail: "TVL-ICT (CSS); graduated with honors",
+    years: "2018 - 2022",
   },
   {
-    level: "Junior High School",
-    school: "Cato National High School",
+    level: "Secondary",
+    school: "Sisters of Mary School-Adlas, Inc.",
     detail: "Consistent with honors",
-    years: "2016 - 2020",
+    years: "2016 - 2018",
   },
   {
     level: "Primary",
@@ -109,42 +115,43 @@ export const education: Education[] = [
 
 export const skills: SkillGroup[] = [
   {
-    category: "Soft Skills",
+    category: "Programming Languages",
     items: [
-      "Management Skills",
-      "Creativity",
-      "Time Management",
-      "Collaborative Mindset",
-      "Critical Thinking",
-      "Leadership",
-    ],
-  },
-  {
-    category: "Languages, Frameworks & Tools",
-    items: [
-      "HTML / CSS / JavaScript",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
       "PHP",
-      "VB.NET",
-      "Visual Studio Code",
-      "MySQL",
-      "Infinity Free / Hostinger / XAMPP",
-      "Git / GitHub",
+      "Visual Basic .NET",
     ],
   },
   {
-    category: "Computer Skills",
+    category: "Frameworks",
     items: [
-      "Troubleshooting, hardware and software installation, and networking",
-      "Efficient in Microsoft Word, Excel, and PowerPoint",
+      "Laravel",
+      "Next.js",
+      "Tailwind CSS",
     ],
   },
-];
-
-export const experience: Experience[] = [
   {
-    place: "Cato National High School",
-    description:
-      "Experienced in diagnosing, repairing, and maintaining computer hardware, software systems, and office printers to ensure smooth daily operations.",
+    category: "Database",
+    items: ["MySQL"],
+  },
+  {
+    category: "Development Tools",
+    items: ["Git", "GitHub", "XAMPP", "Vercel", "Hostinger"],
+  },
+  {
+    category: "AI-Assisted Development",
+    items: ["GitHub Copilot", "Cline", "Kiro", "Claude AI", "ChatGPT"],
+  },
+  {
+    category: "Technical Skills",
+    items: [
+      "Web Development",
+      "Database Management",
+      "System Development",
+      "Basic Networking",
+    ],
   },
 ];
 

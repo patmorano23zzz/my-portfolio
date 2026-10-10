@@ -39,7 +39,7 @@ export function AnimatedSection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} style={{ padding: "3.5rem 0" }}>
+    <section id={id} style={{ padding: "2.4rem 0" }}>
       <div className="container">
         <motion.div
           className="section-head"
@@ -84,7 +84,7 @@ export function AnimatedCard({ children }: { children: ReactNode }) {
       className="card"
       variants={item}
       onMouseMove={onMove}
-      whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.25 } }}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
       whileTap={{ scale: 0.99 }}
     >
       {children}

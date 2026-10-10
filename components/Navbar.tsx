@@ -6,16 +6,39 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
-  { href: "#education", label: "Education" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
+  { href: "#dashboard", label: "Dashboard" },
   { href: "#contact", label: "Contact" },
 ];
+
+type Theme = "dark" | "light";
 
 export default function Navbar({ name }: { name: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#about");
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  useEffect(() => {
+    try {
+      const savedTheme = window.localStorage.getItem("portfolio-theme");
+      const initialTheme = savedTheme === "light" ? "light" : "dark";
+      setTheme(initialTheme);
+      document.documentElement.dataset.theme = initialTheme;
+    } catch {
+      document.documentElement.dataset.theme = "dark";
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+    try {
+      window.localStorage.setItem("portfolio-theme", nextTheme);
+    } catch {
+      // The theme still changes for this visit when storage is unavailable.
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -65,12 +88,11 @@ export default function Navbar({ name }: { name: string }) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: scrolled ? "0.7rem 6%" : "1rem 6%",
-          background:
-            scrolled || open ? "rgba(4, 7, 13, 0.85)" : "transparent",
-          backdropFilter: scrolled || open ? "blur(14px)" : "none",
-          borderBottom:
-            scrolled || open ? "1px solid var(--border)" : "none",
+          padding: scrolled ? "0.65rem 6%" : "0.8rem 6%",
+          background: "var(--nav-bg)",
+          backdropFilter: "blur(14px)",
+          borderBottom: "1px solid var(--border)",
+          boxShadow: "0 5px 20px rgba(0, 0, 0, 0.16)",
           transition: "padding 0.3s ease, background 0.3s ease, border 0.3s ease",
         }}
       >
@@ -110,6 +132,11 @@ export default function Navbar({ name }: { name: string }) {
           ))}
         </ul>
 
+        <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
+          <span aria-hidden="true">{theme === "dark" ? "☼" : "☾"}</span>
+          <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
+        </button>
+
         <button
           className={`hamburger${open ? " open" : ""}`}
           aria-label="Toggle menu"
@@ -134,7 +161,7 @@ export default function Navbar({ name }: { name: string }) {
               position: "fixed",
               inset: 0,
               zIndex: 90,
-              background: "rgba(4, 7, 13, 0.97)",
+              background: "var(--nav-bg)",
               backdropFilter: "blur(16px)",
               display: "flex",
               flexDirection: "column",
@@ -161,6 +188,10 @@ export default function Navbar({ name }: { name: string }) {
                 {link.label}
               </motion.a>
             ))}
+            <button className="theme-toggle mobile-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
+              <span aria-hidden="true">{theme === "dark" ? "☼" : "☾"}</span>
+              <span>{theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}</span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

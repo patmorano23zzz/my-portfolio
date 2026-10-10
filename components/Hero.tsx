@@ -1,242 +1,109 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { profile } from "@/lib/data";
+import { useState } from "react";
+import { profile, projects } from "@/lib/data";
 
-const stats = [
-  { value: "2023", label: "Started CS" },
-  { value: "25+", label: "Projects built" },
-  { value: "7+", label: "Tools & langs" },
-  { value: "∞", label: "To learn" },
-];
-
-const terminalLines = [
-  "> initializing portfolio.exe ... OK",
-  "> loading skills: PHP · JS · MySQL ... OK",
-  "> status: OPEN_TO_OPPORTUNITIES",
+const keySkills = ["PHP", "JavaScript", "MySQL", "React", "Next.js"];
+const portraitModes = [
+  { name: "Coding", className: "coding", companion: "Ship it, Patrick!" },
+  { name: "Debugging", className: "debugging", companion: "Found the bug!" },
+  { name: "Powered up", className: "powered", companion: "Power level: MAX" },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export default function Hero() {
-  const [lineIdx, setLineIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
+  const [modeIndex, setModeIndex] = useState(0);
+  const [foundStar, setFoundStar] = useState(false);
+  const [badges, setBadges] = useState<string[]>([]);
+  const mode = portraitModes[modeIndex];
+  const nextBadge = keySkills[badges.length];
 
-  // Typewriter effect cycling through terminal lines
-  useEffect(() => {
-    const line = terminalLines[lineIdx];
-    if (charIdx < line.length) {
-      const t = setTimeout(() => setCharIdx((c) => c + 1), 28);
-      return () => clearTimeout(t);
-    }
-    const t = setTimeout(() => {
-      setLineIdx((i) => (i + 1) % terminalLines.length);
-      setCharIdx(0);
-    }, 2200);
-    return () => clearTimeout(t);
-  }, [charIdx, lineIdx]);
-
-  const words = profile.name.split(" ");
+  const collectBadge = () => {
+    if (!nextBadge) return;
+    setBadges((current) => [...current, nextBadge]);
+  };
 
   return (
-    <section
-      id="about"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        padding: "6.5rem 6% 4.5rem",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <section id="about" className="hero-section">
       <div className="hero-grid">
-        {/* Left: mission-control copy */}
-        <motion.div
-          className="hero-copy"
-          initial="hidden"
-          animate="show"
-          transition={{ staggerChildren: 0.12, delayChildren: 0.2 }}
-        >
+        <motion.div className="hero-copy" initial="hidden" animate="show" transition={{ staggerChildren: 0.1 }}>
           <motion.div className="status-badge" variants={fadeUp}>
-            <span className="status-dot" />
-            System online
+            <span className="status-dot" /> Available for opportunities
           </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            style={{
-              fontSize: "clamp(2.1rem, 6vw, 3.6rem)",
-              fontWeight: 800,
-              letterSpacing: 0.5,
-              lineHeight: 1.12,
-            }}
-          >
-            {words.map((word) => (
-              <motion.span
-                key={word}
-                variants={{
-                  hidden: { opacity: 0, y: 40, rotateX: -60 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    rotateX: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
-                  },
-                }}
-                style={{
-                  display: "inline-block",
-                  background: "var(--gradient)",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  animation: "shine 6s linear infinite",
-                  marginRight: "0.28em",
-                }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "clamp(1rem, 2.6vw, 1.2rem)",
-              color: "var(--accent)",
-              fontWeight: 600,
-            }}
-          >
-            {profile.title}
+          <motion.p className="hero-kicker" variants={fadeUp}>PLAYER 01 <span>/</span> WEB DEVELOPER</motion.p>
+          <motion.h1 variants={fadeUp}>{profile.name}</motion.h1>
+          <motion.p className="hero-subtitle" variants={fadeUp}>{profile.title}</motion.p>
+          <motion.p className="hero-education" variants={fadeUp}>PRMSU Sta. Cruz <span>/</span> BS Computer Science <span>/</span> 2023–Present</motion.p>
+          <motion.p className="bio-text" variants={fadeUp}>
+            Computer Science student building practical web systems, from adaptive learning tools to school attendance and records platforms. I focus on clear workflows, responsive interfaces, and reliable database-backed applications.
           </motion.p>
-
-          <motion.div className="terminal-line" variants={fadeUp}>
-            <span className="prompt">patrick@portfolio:~$</span>
-            {terminalLines[lineIdx].slice(0, charIdx)}
-            <span className="caret">&nbsp;</span>
+          <motion.div className="hero-highlights" variants={fadeUp}>
+            <div className="highlight-line">
+              <span className="highlight-label">TOOLKIT</span>
+              <div className="quick-chips">{keySkills.map((skill) => <span key={skill}>{skill}</span>)}</div>
+            </div>
+            <div className="highlight-line">
+              <span className="highlight-label">SELECTED BUILDS</span>
+              <div className="quick-projects">
+                {projects.map((project) => project.url && (
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" key={project.title}>{project.title}<span aria-hidden="true"> &#8599;</span></a>
+                ))}
+              </div>
+            </div>
           </motion.div>
-
-          <motion.p
-            className="bio-text"
-            variants={fadeUp}
-            style={{
-              maxWidth: 640,
-              color: "var(--muted)",
-              textAlign: "justify",
-              marginBottom: "2rem",
-            }}
-          >
-            {profile.bio}
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-          >
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.06, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              style={{
-                padding: "0.85rem 2.2rem",
-                borderRadius: 999,
-                background: "var(--gradient)",
-                backgroundSize: "200% auto",
-                color: "#04070d",
-                fontWeight: 700,
-                boxShadow: "0 8px 24px rgba(34, 211, 238, 0.3)",
-              }}
-            >
-              Get In Touch
-            </motion.a>
-            <motion.a
-              href={profile.contact.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.06, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              style={{
-                padding: "0.85rem 2.2rem",
-                borderRadius: 999,
-                border: "1px solid var(--border)",
-                color: "var(--text)",
-                fontWeight: 700,
-                background: "var(--card)",
-              }}
-            >
-              GitHub ↗
-            </motion.a>
-          </motion.div>
-
-          {/* Quick stats */}
-          <motion.div
-            className="stats"
-            style={{ justifyContent: "flex-start", marginTop: "2.4rem" }}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.1 } },
-            }}
-          >
-            {stats.map((s) => (
-              <motion.div
-                className="stat"
-                key={s.label}
-                variants={{
-                  hidden: { opacity: 0, y: 24 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.55, ease: "easeOut" },
-                  },
-                }}
-                whileHover={{ y: -4 }}
-                style={{ textAlign: "left" }}
-              >
-                <b>{s.value}</b>
-                <span>{s.label}</span>
-              </motion.div>
-            ))}
+          <motion.div className="hero-actions" variants={fadeUp}>
+            <a className="button-primary" href="#contact">Get in touch</a>
+            <a className="button-secondary hero-email" href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
+            <a className="button-secondary" href={profile.contact.github} target="_blank" rel="noopener noreferrer">GitHub</a>
           </motion.div>
         </motion.div>
 
-        {/* Right: photo in JARVIS frame */}
-        <motion.div
-          className="photo-wrap"
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
-        >
-          <div className="orbit orbit-1" />
-          <div className="orbit orbit-2" />
-          <motion.div
-            className="photo-frame"
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-          >
+        <motion.aside className="arcade-card portrait-card" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} aria-label="Interactive profile portrait">
+          <div className="arcade-topline"><span>PLAYER CARD</span><span>LVL 23 / WEB DEV</span></div>
+          <div className={`photo-game mode-${mode.className}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photo.png" alt={profile.name} />
-            <span className="photo-label">ID: PM-2023 · ONLINE</span>
-          </motion.div>
-        </motion.div>
-      </div>
+            <img className="profile-photo" src="/photo.png" alt={profile.name} />
 
-      {/* Bouncing scroll cue */}
-      <a href="#education" className="scroll-cue">
-        Scroll
-        <span className="arrow">↓</span>
-      </a>
+            <div className="pixel-sidekick" aria-hidden="true">
+              <span className="sidekick-speech">{mode.companion}</span>
+              <svg className="pixel-bot" viewBox="0 0 32 32" shapeRendering="crispEdges">
+                <path d="M15 3h2v4h-2zM14 1h4v2h-4z" fill="#c8f169" />
+                <path d="M8 8h16v13H8zM11 21h10v7H11zM7 23h4v3H7zM21 23h4v3h-4z" fill="#24272a" stroke="#c8f169" strokeWidth="2" />
+                <path d="M11 12h3v3h-3zM18 12h3v3h-3z" fill="#c8f169" />
+                <path d="M13 18h6v2h-6z" fill="#ff9d6c" />
+                <path className="bot-arm" d="M24 13h3v2h-3zM26 10h2v4h-2z" fill="#ff9d6c" />
+              </svg>
+            </div>
+
+            <button className={`secret-star${foundStar ? " found" : ""}`} type="button" onClick={() => setFoundStar(true)} aria-label={foundStar ? "Secret star found" : "Find the hidden star"}>
+              {foundStar ? "FOUND!" : "✦"}
+            </button>
+            {foundStar && <span className="star-reward" role="status">Secret star found!</span>}
+          </div>
+
+          <div className="portrait-controls">
+            <span className="portrait-control-label">PORTRAIT MODE</span>
+            <button className="mode-switch" type="button" onClick={() => setModeIndex((current) => (current + 1) % portraitModes.length)} aria-label={`Change portrait mode. Current mode: ${mode.name}`}>
+              <span>{mode.name}</span><span aria-hidden="true">&#8644;</span>
+            </button>
+          </div>
+
+          <div className="badge-collection">
+            <div className="badge-heading"><span>SKILL BADGES</span><span>{badges.length}/{keySkills.length}</span></div>
+            <div className="badge-list" aria-live="polite">
+              {badges.map((badge) => <span className="collected-badge" key={badge}>&#10003; {badge}</span>)}
+              {badges.length < keySkills.length && <button type="button" className="collect-badge" onClick={collectBadge}>+ Collect {nextBadge} badge</button>}
+              {badges.length === keySkills.length && <span className="collection-complete">Collection complete!</span>}
+            </div>
+          </div>
+        </motion.aside>
+      </div>
+      <a href="#projects" className="scroll-cue">Explore <span className="arrow">&#8595;</span></a>
     </section>
   );
 }
